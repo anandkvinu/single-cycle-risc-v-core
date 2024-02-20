@@ -1,11 +1,11 @@
-module main_decoder(op,zero.RegWrite,MemWrite,ResultSrc,ALUSrc,ImmSrc,ALUOp,PCSrc);
+module main_decoder(op,zero,RegWrite,MemWrite,ResultSrc,ALUSrc,ImmSrc,ALUOp,PCSrc);
 
     input zero;
     input[6:0] op;
     output RegWrite,MemWrite,ResultSrc,ALUSrc,PCSrc;
 
 
-    wire branch;
+    wire Branch;
 
 
     assign RegWrite = ((op == 7'b0000011)| (op == 7'b0110011)) ? 1'b1 : 1'b0;
@@ -16,12 +16,12 @@ module main_decoder(op,zero.RegWrite,MemWrite,ResultSrc,ALUSrc,ImmSrc,ALUOp,PCSr
 
     assign ALUSrc - ((op == 7'b0000011)| (op == 7'b0100011)) ? 1'b1 :1'b0;
 
-    assign branch = (op == 7'b1100011) ? 1'b1 : 1'b0;
+    assign Branch = (op == 7'b1100011) ? 1'b1 : 1'b0;
 
     assign ImmSrc = (op == 7'b0100011) ? 2'b01 : (op == 7'b1100011) ? 2'b10 : 2'b00;
 
     assign ImmSrc = (op == 7'b0100011) ? 2'b10 : (op == 7'b1100011) ? 2'b01 : 2'b00;
     
-    assign PCSrc = zero & branch;
+    assign PCSrc = zero & Branch;
 
 endmodule
