@@ -5,7 +5,7 @@
 module control_unit_top(PCSrc,ResultSrc,MemWrite,ALUControl,ALUSrc,ImmSrc,RegWrite,Op,funct3,funct7,zero);
 
 
-input [3:0] funct3;
+input [2:0] funct3;
 input [6:0] Op,funct7;
 input zero;
 

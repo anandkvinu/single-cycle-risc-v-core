@@ -3,6 +3,7 @@ module alu (A,B,alucontrol,result,Z,N,V,C);
     input [2:0] alucontrol;
 
     output [31:0] result;
+    output Z,N,V,C;
 
 
     
@@ -29,11 +30,11 @@ module alu (A,B,alucontrol,result,Z,N,V,C);
                                              ///and if 1 it will be the ones compliment of B + 1
                                              ///(control bit) which is twos compliment
 
-    assign alu_mux2 = (alucontrol[2:0] == 2'b000) ? sum :
-                      (alucontrol[2:0] == 2'b001) ? sum : 
-                      (alucontrol[2:0] == 2'b010) ? a_and_b :
-                      (alucontrol[2:0] == 2'b011) ? a_or_b :
-                      (alucontrol[2:0] == 2'b101) ? slt : 32'h00000000;
+    assign alu_mux2 = (alucontrol[2:0] == 3'b000) ? sum :
+                      (alucontrol[2:0] == 3'b001) ? sum : 
+                      (alucontrol[2:0] == 3'b010) ? a_and_b :
+                      (alucontrol[2:0] == 3'b011) ? a_or_b :
+                      (alucontrol[2:0] == 3'b101) ? slt : 32'h00000000;
     assign result = alu_mux2;
 // f;ag
 
@@ -43,7 +44,7 @@ module alu (A,B,alucontrol,result,Z,N,V,C);
 
     assign C = cout &(~alucontrol[1]);//  carry flag
 
-    assign V = (~alucontrol[1]) & A[31] ^ sum[31] & (A[31] ^ B[31] ^ alucontrol[1])// overflow flag
+    assign V = (~alucontrol[1]) & (A[31] ^ sum[31] )& (A[31] ^ B[31] ^ alucontrol[1]);// overflow flag
 
-    assign slt = {31'0000000000000000000000000000000,sum[31]};
+    assign slt = {31'b0000000000000000000000000000000,sum[31]};
 endmodule

@@ -1,9 +1,9 @@
 module alu_decoder (ALUOp,op5,funct3,funct7,ALUControl); 
     
     input [1:0] ALUOp;
-    input op5;,funct7;
+    input[6:0]op5,funct7;
     input [2:0] funct3;
-    input [2:0] ALUControl;
+    output [2:0] ALUControl;
 
     //interim wire
 

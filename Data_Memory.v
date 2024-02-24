@@ -1,4 +1,4 @@
-module Data_mem(WE,WD,A,clk,rst,RD)
+module Data_mem(WE,WD,A,clk,rst,RD);
     input WE;
     input clk,rst;
     input [31:0] A,WD;
