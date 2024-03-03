@@ -1,6 +1,6 @@
 module Single_Cycle_Top_TB();
 
-    reg clk,rst;
+    reg clk = 1'b1,rst;
 
     Single_Cycle_Top single_cycle_top(
         .clk(clk),
@@ -22,12 +22,12 @@ module Single_Cycle_Top_TB();
     initial
     begin
         rst = 1'b0;
-        #150;
+        #100;
         
 
         rst =1'b1;
-        #500;
+        #300;
         $finish;
     end
-    
+
 endmodule

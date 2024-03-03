@@ -7,14 +7,16 @@ module Data_mem(WE,WD,A,clk,rst,RD);
 
     reg [31:0] data_mem [1023:0] ;
 
-    assign RD = (WE == 1'b0) ? data_mem[A] : 32'h00000000;
-
+    assign RD = (~rst) ? 32'd0 : data_mem[A];
     always @(posedge clk ) begin
         if(WE)
-        begin
+        
             data_mem[A] <= WD;
-        end
+    
     end
-
+initial
+begin
+ data_mem[28]= 32'h00000030;
+end
 
 endmodule

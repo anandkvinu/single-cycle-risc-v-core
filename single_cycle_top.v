@@ -13,6 +13,7 @@ module Single_Cycle_Top(clk,rst);
 
     wire [31:0] PC_Top,RD_Instr,RD1_Top,Imm_Ext_Top,ALUResult_Top,Read_data,PCPlus4;
     wire RegWrite;
+    wire [1:0]ImmSrc;
     wire [2:0] ALUControl_Top;
 
 
@@ -41,14 +42,14 @@ module Single_Cycle_Top(clk,rst);
         .A2(),
         .A3(RD_Instr[11:7]),
         .WD3(Read_data),
-        .RD1(),
+        .RD1(RD1_Top),
         .RD2()
         
     );
 
 Sign_Extend signextendobj(
     .In(RD_Instr),
-    .Imm_Ext()
+    .Imm_Ext(Imm_Ext_Top)
 );
 
 
@@ -68,9 +69,9 @@ control_unit_top ctrltopobj(
     .ResultSrc(),
     .MemWrite(),
     .ALUControl(ALUControl_Top),
-    .ALUSrc(),
-    .ImmSrc(),
-    .RegWrite(),
+    .ALUSrc(ALUSrc),
+    .ImmSrc(ImmSrc),
+    .RegWrite(RegWrite),
     .Op(RD_Instr[6:0]),
     .funct3(RD_Instr[14:12]),
     .funct7(),

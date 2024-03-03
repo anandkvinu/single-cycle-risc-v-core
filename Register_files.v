@@ -21,5 +21,8 @@ always @(posedge clk ) begin
         registers[A3] <= WD3; 
     end
 end
-
+initial
+begin
+    registers[9] = 32'h00000020;
+end
 endmodule
